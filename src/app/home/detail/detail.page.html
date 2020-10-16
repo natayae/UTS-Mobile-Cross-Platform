@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Product Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col  size="12" size-sm="8" offset-sm="2">
+        <ion-img [src]="loadedItem.imageUrl"></ion-img>
+        <h1><b>{{loadedItem.merk}} {{loadedItem.model}}</b></h1>
+        <p>Rp. {{loadedItem.price}}</p>
+        <p>Tersedia: {{loadedItem.stock}}</p>
+        <ion-item-divider></ion-item-divider>
+        <br>
+        <h4><b>Tentang Produk</b></h4>
+        <ion-list>
+          <ion-item lines="none" *ngIf="loadedItem.merk != 0">
+            <ion-label>Merk : {{ loadedItem.merk }}</ion-label>
+          </ion-item>
+          <ion-item lines="none" *ngIf="loadedItem.model != 0">
+            <ion-label>Model : {{ loadedItem.model }}</ion-label>
+          </ion-item>
+          <ion-item lines="none" *ngIf="loadedItem.baseclock != 0">
+            <ion-label>Base Clock : {{ loadedItem.baseclock }}</ion-label>
+          </ion-item>
+          <ion-item lines="none" *ngIf="loadedItem.boostclock != 0">
+            <ion-label>Boost Clock : {{ loadedItem.boostclock }}</ion-label>
+          </ion-item>
+          <ion-item lines="none" *ngIf="loadedItem.core != 0">
+            <ion-label>Core : {{ loadedItem.core }}</ion-label>
+          </ion-item>
+          <ion-item lines="none" *ngIf="loadedItem.thread != 0">
+            <ion-label>Thread : {{ loadedItem.thread }}</ion-label>
+          </ion-item>
+          <ion-item lines="none" *ngIf="loadedItem.chipset != ''">
+            <ion-label>Chipset : {{ loadedItem.chipset }}</ion-label>
+          </ion-item>
+          <ion-item lines="none" *ngIf="loadedItem.processor != ''">
+            <ion-label>Processor : {{ loadedItem.processor }}</ion-label>
+          </ion-item>
+          <ion-item lines="none" *ngIf="loadedItem.speed != 0">
+            <ion-label>Speed : {{ loadedItem.speed}}</ion-label>
+          </ion-item>
+          <ion-item lines="none" *ngIf="loadedItem.size != 0">
+            <ion-label>Size : {{ loadedItem.size}}</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
