@@ -1,8 +1,5 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/admin"></ion-back-button>
-    </ion-buttons>
     <ion-title>Edit Product</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -51,7 +48,7 @@
                           required></ion-input>
             </ion-item>
             <ion-item>
-              <ion-label position="floating">Stok/ion-label>
+              <ion-label position="floating">Stok</ion-label>
               <ion-input  type="number"
                           ngModel="{{loadedItem.stock}}"
                           name="stock"
@@ -94,7 +91,7 @@
             </span>
             <span *ngIf="loadedItem.type === 'RAM'">
               <ion-item>
-                <ion-label position="floating">Memory Speed</ion-label>
+                <ion-label position="floating">Speed</ion-label>
                 <ion-input  type="number"
                             ngModel="{{loadedItem.speed}}"
                             name="speed"
@@ -102,7 +99,7 @@
                             required></ion-input>
               </ion-item>
               <ion-item>
-                <ion-label position="floating">Memory Size</ion-label>
+                <ion-label position="floating">Size</ion-label>
                 <ion-input  type="number"
                             ngModel="{{loadedItem.size}}"
                             name="size"

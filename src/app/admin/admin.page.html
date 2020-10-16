@@ -17,11 +17,11 @@
     <ion-card>
       <ion-item-sliding *ngFor="let item of items" #slidingItem>
         <ion-item-options side="start">
-          <ion-item-option [routerLink]="['/admin/edit-item/', item.id]">
+          <ion-item-option [routerLink]="['/admin/edit-item', item.id]">
             <ion-icon name="create" slot="icon-only"></ion-icon>
           </ion-item-option>
         </ion-item-options>
-        <ion-item [routerLink]="['/admin/', item.id]">
+        <ion-item [routerLink]="['/admin', item.id]">
           <ion-thumbnail slot="start">
             <img [src]="item.imageUrl"/>
           </ion-thumbnail>

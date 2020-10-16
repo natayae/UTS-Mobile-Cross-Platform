@@ -168,12 +168,9 @@ export class HomeService {
     console.log('deleted');
   }
 
-  addItem(imageURL: string, type: string, merk: string, model: string, price: number, stock: string, base: string, boost: string, core:string, thread: string, chipset: string, processor: string, speed:string, size: string) {
-    var temp = '1234';
-    var length = this.items.length + 1;
-    temp += length;
-    this.items.push({
-      id: temp,
+  addItem(id: string, imageURL: string, type: string, merk: string, model: string, price: number, stock: string, base: string, boost: string, core:string, thread: string, chipset: string, processor: string, speed:string, size: string) {
+    this.items.push({ 
+      id: id,
       type: type,
       imageUrl: [imageURL],
       merk: merk,
