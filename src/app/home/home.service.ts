@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { Item } from './home.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HomeService {
+
+  public typeItem = ['CPU', 'GPU', 'Motherboard', 'RAM']
   private items: Item[] = [
     {
       id: 'p1',
-      type: 'CPU',
+      type: this.typeItem[0],
       imageUrl: ['https://hexus.net/media/uploaded/2020/7/b1bf5a2c-bd32-48e1-89a8-07f4331a91d3.jpg'],
       merk: 'AMD',
       model: 'Ryzen™ Threadripper™ PRO 3995WX',
@@ -27,7 +29,7 @@ export class HomeService {
     },
     {
       id: 'p2',
-      type: 'CPU',
+      type: this.typeItem[0],
       imageUrl: ['https://www.amd-id.com/wp-content/uploads/2020/10/AMD-Ryzen-9-5900X.png'],
       merk: 'AMD',
       model: 'Ryzen™ 9 5900X',
@@ -44,7 +46,7 @@ export class HomeService {
     },
     {
       id: 'p3',
-      type: 'GPU',
+      type: this.typeItem[1],
       imageUrl: ['https://www.amd-id.com/wp-content/uploads/2015/08/R9_Nano_BlackRef_RGB_5inch.jpg'],
       merk: 'AMD',
       model: 'Radeon™ R9 Nano',
@@ -61,7 +63,7 @@ export class HomeService {
     },
     {
       id: 'p4',
-      type: 'GPU',
+      type: this.typeItem[1],
       imageUrl: ['https://clevo-computer.com/media/image/32/b1/c1/Sapphire-Radeon-RX-5700-XT-8G-8GB-GDDR6-HDMI-3x-DP-full-retail-21293-01-40G.jpg'],
       merk: 'AMD',
       model: 'Radeon™ RX 5700 XT',
@@ -78,7 +80,7 @@ export class HomeService {
     },
     {
       id: 'p5',
-      type: 'Motherboard',
+      type: this.typeItem[2],
       imageUrl: ['https://thesystemone.com/image/cache/catalog/mainboard/asus/crosshair-viii-hero-wifi-1-1000x1000.jpg'],
       merk: 'Asus',
       model: 'ROG Crosshair VIII Hero (WI-FI)',
@@ -95,7 +97,7 @@ export class HomeService {
     },
     {
       id: 'p6',
-      type: 'Motherboard',
+      type: this.typeItem[2],
       imageUrl: ['https://www.biostar.com.tw/upload/Motherboard/b20200807_4.png'],
       merk: 'Biostar',
       model: 'Z490T-SILVER Ver. 5.0',
@@ -112,7 +114,7 @@ export class HomeService {
     },
     {
       id: 'p7',
-      type: 'RAM',
+      type: this.typeItem[3],
       imageUrl: ['https://www.gigabyte.com/FileUpload/Global/WebPage/650/img/1.png'],
       merk: 'Gigabyte',
       model: 'GeForce RTX™ 3070 EAGLE 8G',
@@ -129,7 +131,7 @@ export class HomeService {
     },
     {
       id: 'p8',
-      type: 'RAM',
+      type: this.typeItem[3],
       imageUrl: ['https://static.gigabyte.com/Product/53/7221/20200205114700508d97246833b4a81b11cad3c5d5a19410_big.png'],
       merk: 'Gigabyte',
       model: 'DESIGNARE Memory 64GB (2x32GB) 3200MHz',
@@ -148,6 +150,7 @@ export class HomeService {
 
   constructor( 
     private alertCtrl: AlertController,
+    private toastCtrl: ToastController,
     private router: Router) { }
 
   getAllItems(){
@@ -161,36 +164,32 @@ export class HomeService {
     )};
   }
 
-  deleteItem(itemId: string){
-    this.items = this.items.filter( item => {
-      return item.id !== itemId;
+  deleteProduct(productId: string) {
+    this.items= this.items.filter(product => {
+      return product.id !== productId;
     });
-    console.log('deleted');
   }
 
-  addItem(id: string, imageURL: string, type: string, merk: string, model: string, price: number, stock: string, base: string, boost: string, core:string, thread: string, chipset: string, processor: string, speed:string, size: string) {
-    var tempId = 'p1-';
-    var length = this.items.length;
-    tempId += length;
-    this.items.push({ 
-      id: tempId,
-      type: type,
-      imageUrl: [imageURL],
-      merk: merk,
-      model: model,
-      price: price,
-      stock: stock,
-      baseclock: base,
-      boostclock: boost,
-      core: core,
-      thread: thread,
-      chipset: chipset,
-      processor: processor,
-      speed: speed,
-      size: size,
+  addItem(items: Item) {
+    length = this.items.length;
+    console.log('Product added:', items);
+    this.items.push({
+      id: `product-${length + 1}`,
+      imageUrl: items.imageUrl,
+      type: items.type,
+      merk: items.merk,
+      model: items.model,
+      baseclock: items.baseclock,
+      boostclock: items.boostclock,
+      core: items.core,
+      thread: items.thread,
+      speed: items.speed,
+      size: items.size,
+      chipset: items.chipset,
+      processor: items.processor,
+      price: items.price,
+      stock:items.stock,
     });
-    console.log(this.items);
-    this.router.navigate(['/admin']);
   }
 
   editItem(id:string, imageURL: string, type: string, merk: string, model: string, price: number, stock: string, base: string, boost: string, core:string, thread: string, chipset: string, processor: string, speed:string, size:string) {
@@ -215,23 +214,5 @@ export class HomeService {
       }
     }
     this.router.navigate(['/admin']);
-  }
-
-  async deleteAlert(itemId: string) {
-    const alert = await this.alertCtrl.create({
-      header: 'Are you sure?',
-      message: 'Do you really want to delete this product?',
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel'
-        },
-        {
-          text: 'Delete',
-          handler: () => this.deleteItem(itemId)
-        }
-      ]
-    });
-    await alert.present();
   }
 }

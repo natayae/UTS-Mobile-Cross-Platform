@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import { LoadingController, ToastController } from '@ionic/angular';
+import { Item } from 'src/app/home/home.model';
 import { HomeService } from 'src/app/home/home.service';
 
 @Component({
@@ -9,72 +12,41 @@ import { HomeService } from 'src/app/home/home.service';
 })
 export class AddItemPage implements OnInit {
   form: FormGroup;
-  constructor(private itemsService: HomeService) { }
+  loadedItem: Item;
+  constructor(
+    private itemsService: HomeService,
+    private router: Router,
+    private toastCtrl: ToastController,
+    private loadingCtrl: LoadingController) { }
 
   ngOnInit() {
   }
 
   onSubmit(form: NgForm){
-    if(!form.valid){
-      return;
-    }
-    const id = form.value.tempId;
-    const imageURL = form.value.imageURL;
-    const type = form.value.type;
-    const merk = form.value.merk;
-    const model = form.value.model;
-    const price = form.value.price;
-    const stock = form.value.stock;
+    this.presentLoading().then(() => {
+      this.itemsService.addItem(form.value);
+      this.router.navigate(['./admin']);
+      this.presentToast();
+    });
+  }
 
-    var base, boost, core, thread, chipset, processor, speed, size;
+  async presentLoading(){
+    const loading = await this.loadingCtrl.create({
+      message: 'Adding Product...',
+      duration: 3000
+    });
+    await loading.present();
 
-    if( type === 'CPU' ) {
+    const { role, data } = await loading.onDidDismiss();
+    console.log('Loading dismissed');
+  }
 
-      base = form.value.baseclock;
-      boost = form.value.boostclock;
-      core = form.value.core;
-      thread = form.value.thread;
-
-      speed = '';
-      size = '';
-      chipset = '';
-      processor = '';
-
-    } else if ( type === 'GPU' ) {
-
-      base = '';
-      boost = '';
-      core = '';
-      thread = '';
-      chipset = '';
-      processor = '';
-      speed = '';
-      size = '';
-
-    } else if ( type === 'Motherboard' ) {
-
-      chipset = form.value.chipset;
-      processor = form.value.processor;
-
-      base = '';
-      boost = '';
-      core = '';
-      thread = '';
-      speed = '';
-      size = '';
-
-    } else if ( type === 'RAM') {
-
-      speed = form.value.speed;
-      size = form.value.size;
-
-      base = '';
-      boost = '';
-      core = '';
-      thread = '';
-      chipset = '';
-      processor = '';
-    }
-    this.itemsService.addItem(id, imageURL, type, merk, model, price, stock, base, boost, core, thread, chipset, processor, speed, size);
+  async presentToast() {
+    const toast = await this.toastCtrl.create({
+      message: 'Product added successfully',
+      color: 'success',
+      duration: 3000
+    });
+    toast.present();
   }
 }
