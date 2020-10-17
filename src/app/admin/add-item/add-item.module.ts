@@ -11,8 +11,7 @@ import { AddItemPage } from './add-item.page';
 @NgModule({
   imports: [
     CommonModule,
-    ReactiveFormsModule,
-    NgForm,
+    FormsModule,
     IonicModule,
     AddItemPageRoutingModule
   ],

@@ -11,7 +11,6 @@ import { HomeService } from 'src/app/home/home.service';
   styleUrls: ['./add-item.page.scss'],
 })
 export class AddItemPage implements OnInit {
-  form: FormGroup;
   loadedItem: Item;
   constructor(
     private itemsService: HomeService,
