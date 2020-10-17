@@ -6,6 +6,11 @@ import { EditItemPage } from './edit-item.page';
 const routes: Routes = [
   {
     path: '',
+    redirectTo: '/admin',
+    pathMatch: 'full'
+  },
+  {
+    path: ':itemId',
     component: EditItemPage
   }
 ];

@@ -9,7 +9,7 @@ import { Item } from './home.model';
 export class HomeService {
   private items: Item[] = [
     {
-      id: 'c1',
+      id: 'p1',
       type: 'CPU',
       imageUrl: ['https://hexus.net/media/uploaded/2020/7/b1bf5a2c-bd32-48e1-89a8-07f4331a91d3.jpg'],
       merk: 'AMD',
@@ -26,7 +26,7 @@ export class HomeService {
       price: 150000000
     },
     {
-      id: 'c2',
+      id: 'p2',
       type: 'CPU',
       imageUrl: ['https://www.amd-id.com/wp-content/uploads/2020/10/AMD-Ryzen-9-5900X.png'],
       merk: 'AMD',
@@ -43,7 +43,7 @@ export class HomeService {
       price: 115000000
     },
     {
-      id: 'g3',
+      id: 'p3',
       type: 'GPU',
       imageUrl: ['https://www.amd-id.com/wp-content/uploads/2015/08/R9_Nano_BlackRef_RGB_5inch.jpg'],
       merk: 'AMD',
@@ -60,7 +60,7 @@ export class HomeService {
       price: 8000000
     },
     {
-      id: 'g4',
+      id: 'p4',
       type: 'GPU',
       imageUrl: ['https://clevo-computer.com/media/image/32/b1/c1/Sapphire-Radeon-RX-5700-XT-8G-8GB-GDDR6-HDMI-3x-DP-full-retail-21293-01-40G.jpg'],
       merk: 'AMD',
@@ -77,7 +77,7 @@ export class HomeService {
       price: 7300000
     },
     {
-      id: 'm5',
+      id: 'p5',
       type: 'Motherboard',
       imageUrl: ['https://thesystemone.com/image/cache/catalog/mainboard/asus/crosshair-viii-hero-wifi-1-1000x1000.jpg'],
       merk: 'Asus',
@@ -94,7 +94,7 @@ export class HomeService {
       price: 9500000
     },
     {
-      id: 'm6',
+      id: 'p6',
       type: 'Motherboard',
       imageUrl: ['https://www.biostar.com.tw/upload/Motherboard/b20200807_4.png'],
       merk: 'Biostar',
@@ -111,7 +111,7 @@ export class HomeService {
       price: 900000
     },
     {
-      id: 'r7',
+      id: 'p7',
       type: 'RAM',
       imageUrl: ['https://www.gigabyte.com/FileUpload/Global/WebPage/650/img/1.png'],
       merk: 'Gigabyte',
@@ -128,7 +128,7 @@ export class HomeService {
       price: 1100000
     },
     {
-      id: 'r8',
+      id: 'p8',
       type: 'RAM',
       imageUrl: ['https://static.gigabyte.com/Product/53/7221/20200205114700508d97246833b4a81b11cad3c5d5a19410_big.png'],
       merk: 'Gigabyte',
@@ -168,9 +168,12 @@ export class HomeService {
     console.log('deleted');
   }
 
-  addItem(id: string, imageURL: string, type: string, merk: string, model: string, price: number, stock: string, base: string, boost: string, core:string, thread: string, chipset: string, processor: string, speed:string, size: string) {
+  addItem(imageURL: string, type: string, merk: string, model: string, price: number, stock: string, base: string, boost: string, core:string, thread: string, chipset: string, processor: string, speed:string, size: string) {
+    var tempId = 'p1-';
+    var length = this.items.length;
+    tempId += length;
     this.items.push({ 
-      id: id,
+      id: tempId,
       type: type,
       imageUrl: [imageURL],
       merk: merk,
@@ -187,10 +190,10 @@ export class HomeService {
       size: size,
     });
     console.log(this.items);
-    this.router.navigate(['/items/admin']);
+    this.router.navigate(['/admin']);
   }
 
-  editItem(id:string, imageURL: string, type: string, merk: string, model: string, price: number, stock: string, base: string, boost: string, core:string, thread: string, chipset: string, processor: string, speed:string, size: string) {
+  editItem(id:string, imageURL: string, type: string, merk: string, model: string, price: number, stock: string, base: string, boost: string, core:string, thread: string, chipset: string, processor: string, speed:string, size:string) {
     for(var i = 0; i < this.items.length; i++){
       if(this.items[i].id == id){
         this.items[i].id = id;
@@ -211,7 +214,7 @@ export class HomeService {
         console.log(this.items[i]);
       }
     }
-    this.router.navigate(['/home']);
+    this.router.navigate(['/admin']);
   }
 
   async deleteAlert(itemId: string) {

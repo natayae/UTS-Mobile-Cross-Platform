@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, NgForm } from '@angular/forms';
+import { FormGroup, FormControl, NgForm } from '@angular/forms';
 import { HomeService } from 'src/app/home/home.service';
 
 @Component({
@@ -53,7 +53,7 @@ export class AddItemPage implements OnInit {
     } else if ( type === 'Motherboard' ) {
 
       chipset = form.value.chipset;
-      processor = form.value.comp;
+      processor = form.value.processor;
 
       base = '';
       boost = '';
