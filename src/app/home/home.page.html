@@ -20,7 +20,7 @@
     <ion-list *ngIf="displayMode == 1">
       <ion-card *ngFor="let item of items" [routerLink]="['./', item.id]"
         class="ion-padding">
-        <ion-item>
+        <ion-item class="ion-no-padding" lines="none">
           <ion-thumbnail slot="start">
             <img [src]="item.imageUrl"/>
           </ion-thumbnail>
@@ -36,7 +36,7 @@
     </ion-list>
   </span>
 
-  <ion-grid fixed="true" *ngIf="displayMode == 2">
+  <ion-grid *ngIf="displayMode == 2">
     <ion-row class="ion-justify-content-start">
       <ion-col *ngFor="let item of items" size="6" class="ion-text-center">
         <ion-card [routerLink]="['./', item.id]"
