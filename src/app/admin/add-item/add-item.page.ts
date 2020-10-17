@@ -18,6 +18,7 @@ export class AddItemPage implements OnInit {
     if(!form.valid){
       return;
     }
+    const id = form.value.tempId;
     const imageURL = form.value.imageURL;
     const type = form.value.type;
     const merk = form.value.merk;
@@ -74,6 +75,6 @@ export class AddItemPage implements OnInit {
       chipset = '';
       processor = '';
     }
-    this.itemsService.addItem(imageURL, type, merk, model, price, stock, base, boost, core, thread, chipset, processor, speed, size);
+    this.itemsService.addItem(id, imageURL, type, merk, model, price, stock, base, boost, core, thread, chipset, processor, speed, size);
   }
 }

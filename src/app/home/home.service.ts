@@ -168,7 +168,7 @@ export class HomeService {
     console.log('deleted');
   }
 
-  addItem(imageURL: string, type: string, merk: string, model: string, price: number, stock: string, base: string, boost: string, core:string, thread: string, chipset: string, processor: string, speed:string, size: string) {
+  addItem(id: string, imageURL: string, type: string, merk: string, model: string, price: number, stock: string, base: string, boost: string, core:string, thread: string, chipset: string, processor: string, speed:string, size: string) {
     var tempId = 'p1-';
     var length = this.items.length;
     tempId += length;
